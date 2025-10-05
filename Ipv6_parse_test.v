@@ -3,13 +3,26 @@ module test
 import ip { Ipv6 }
 
 fn test_it_can_parses_compressed_format() {
-    assert Ipv6.parse("2001::1") == Ipv6{address: ["2001".hex(), 0, 0, 0, 0, 0, 0, "1".hex()]}
+    actual := Ipv6.parse("2001::1") or { Ipv6{} }
+    expected := Ipv6{address: [u16(0x2001), 0, 0, 0, 0, 0, 0, u16(0x1)]!}
+
+    assert actual == expected
 }
 
 fn test_it_can_parses_full_format() {
-    assert Ipv6.parse("2001:0db8:85a3:0000:0000:8a2e:0370:7334") == Ipv6{
-        address: ["2001".hex(), "db8".hex(), "85a3".hex(), 0, 0, "8a2e".hex(), "370".hex(), "7334".hex()]
+    actual := Ipv6.parse("2001:0db8:85a3:0000:0000:8a2e:0370:7334") or { Ipv6{} }
+    expected := Ipv6{
+        address: [u16(0x2001), u16(0xdb8), u16(0x85a3), 0, 0, u16(0x8a2e), u16(0x370), u16(0x7334)]!
     }
+
+    assert actual == expected
+}
+
+fn test_canonical_and_compressed_formats_are_equivalent() {
+    first_address := Ipv6.parse("2001:0db8:85a3:0000:0000:8a2e:0370:7334")!
+    second_address := Ipv6.parse("2001:db8:85a3::8a2e:370:7334")!
+
+    assert first_address == second_address
 }
 
 fn test_it_doesnt_parses_ipv6_with_overflowing_blocks() {
