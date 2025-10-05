@@ -3,7 +3,7 @@ module test
 import ip { Ipv4 }
 
 fn test_it_parses_ipv4_address() {
-    assert Ipv4.parse("192.168.1.1") or { Ipv4{} } == Ipv4{address: [192, 168, 1, 1]}
+    assert Ipv4.parse("192.168.1.1") or { Ipv4{} } == Ipv4{address: [u8(192), 168, 1, 1]!}
 }
 
 fn test_it_doesnt_parses_ipv4_overflowed_address() {
