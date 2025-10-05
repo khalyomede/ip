@@ -2,6 +2,16 @@
 
 An IP v4 / v6 compatible struct to parse and render IPs.
 
+```v
+module main
+
+import khalyomede.ip { Ipv4 }
+
+fn main() {
+  address := Ipv4.parse("192.168.1.1") or { Ipv4{} }
+}
+```
+
 ## Summary
 
 - [About](#about)
