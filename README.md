@@ -21,13 +21,13 @@ fn main() {
 
 ## About
 
-This package parses IP v4 / v6 and ensure IPs are valid before manipulation.
+This package parses IP v4 / v6 and ensures IPs are valid before manipulation.
 
 ## Features
 
 - Parses IPv4 and IPv6
-- Returns error if Ip v4/v6 are invalid during parse
-- Can be casted to string and canonical format ("full format" for Ip v6)
+- Returns error if IP v4/v6 are invalid during parse
+- Can be cast to string and canonical format ("full format" for IP v6)
 
 ## Installation
 
@@ -61,7 +61,7 @@ module main
 import khalyomede.ip { Ipv4 }
 
 fn main() {
-  address := Ipv4.parse("8.8.8.8") or { Ipv4{address: [8, 8, 8, 8]} }
+  address := Ipv4.parse("8.8.8.8") or { Ipv4{address: [u8(8), 8, 8, 8]!} }
 }
 ```
 
@@ -91,7 +91,7 @@ import khalyomede.ip { Ipv4 }
 fn main() {
   address := Ipv4{}
 
-  assert "Address is: ${address}" == "Address is: 0.0.0.0"
+  assert "${address}" == "0.0.0.0"
 }
 ```
 
@@ -107,7 +107,7 @@ import khalyomede.ip { Ipv6 }
 fn main() {
   address := Ipv6{}
 
-  assert "Address is ${address}" == "Address is ::"
+  assert "${address}" == "::"
 }
 ```
 
@@ -121,7 +121,7 @@ module main
 import khalyomede.ip { Ipv6 }
 
 fn main() {
-  address := Ipv6.parse("2001:db8::1")
+  address := Ipv6.parse("2001:db8::1") or { Ipv6{} }
 
   assert address.to_full_string() == "2001:0db8:0000:0000:0000:0000:0000:0001"
 }
@@ -129,7 +129,7 @@ fn main() {
 
 [back to examples](#examples)
 
-## Comparing two Ipv6
+### Comparing two Ipv6
 
 ```v
 module main
@@ -137,8 +137,8 @@ module main
 import khalyomede.ip { Ipv6 }
 
 fn main() {
-  first_address := Ipv6.parse("2001:db8::1")
-  second_address := Ipv6.parse("2001:0db8:0000:0000:0000:0000:0000:0001")
+  first_address := Ipv6.parse("2001:db8::1") or { Ipv6{} }
+  second_address := Ipv6.parse("2001:0db8:0000:0000:0000:0000:0000:0001") or { Ipv6{} }
 
   assert first_address == second_address
 }
