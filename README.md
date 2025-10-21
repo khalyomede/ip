@@ -50,6 +50,8 @@ v install khalyomede/ip
   - [Casting Ipv4 to string](#casting-ipv4-to-string)
   - [Casting Ipv6 to string](#casting-ipv6-to-string)
   - [Casting IPv6 to full string](#casting-ipv6-to-full-string)
+- Matching
+  - [Use the Address sum type to match both types](#use-the-address-sum-type-to-match-both-types)
 - Comparison
   - [Comparing two Ipv6](#comparing-two-ipv6)
 
@@ -124,6 +126,31 @@ fn main() {
   address := Ipv6.parse("2001:db8::1") or { Ipv6{} }
 
   assert address.to_full_string() == "2001:0db8:0000:0000:0000:0000:0000:0001"
+}
+```
+
+[back to examples](#examples)
+
+### Use the Address sum type to match both types
+
+If you want to create functions that can return either an `Ipv4` or `Ipv6`, use the `Address` sum type.
+
+```v
+module main
+
+import khalyomede.ip { Address, Ipv4, Ipv6 }
+
+fn get_ip() Address {
+  return Address(Ipv4{address: [u8(192), 168, 1, 1]!})
+}
+
+fn main() {
+  address := get_ip()
+
+  match address {
+    Ipv4 { println(address) }
+    Ipv6 { println(address.to_full_string()) }
+  }
 }
 ```
 
