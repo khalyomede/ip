@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-11-23
+
 ### Added
 
 - Method to check if a string is a valid IP V4 ([#2](https://github.com/khalyomede/ip/issues/2)).
