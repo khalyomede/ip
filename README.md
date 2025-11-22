@@ -52,6 +52,9 @@ v install khalyomede/ip
   - [Casting IPv6 to full string](#casting-ipv6-to-full-string)
 - Matching
   - [Use the Address sum type to match both types](#use-the-address-sum-type-to-match-both-types)
+- Checking
+  - [Check a string is a valid IP V4](#check-a-string-is-a-valid-ip-v4)
+  - [Check a string is a valid IP V6](#check-a-string-is-a-valid-ip-v6)
 - Comparison
   - [Comparing two Ipv6](#comparing-two-ipv6)
 
@@ -126,6 +129,48 @@ fn main() {
   address := Ipv6.parse("2001:db8::1") or { Ipv6{} }
 
   assert address.to_full_string() == "2001:0db8:0000:0000:0000:0000:0000:0001"
+}
+```
+
+[back to examples](#examples)
+
+### Check a string is a valid IP V4
+
+Use this method if you only need to verify the validity of an IP V4.
+
+```v
+module main
+
+import khalyomede.ip { Ipv4 }
+
+fn main() {
+  message := match Ipv4.is_valid("192.168.1.1") {
+    true { "Valid IP V4" }
+    false { "Invalid IP V4" }
+  }
+
+  assert message == "Valid IP V4"
+}
+```
+
+[back to examples](#examples)
+
+### Check a string is a valid IP V6
+
+Use this method if you only need to verify the validity of an IP V6.
+
+```v
+module main
+
+import khalyomede.ip { Ipv6 }
+
+fn main() {
+  message := match Ipv6.is_valid("192.168.1.1") {
+    true { "Valid IP V6" }
+    false { "Invalid IP V6" }
+  }
+
+  assert message == "Valid IP V6"
 }
 ```
 

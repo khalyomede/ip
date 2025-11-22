@@ -21,5 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: docker compose run v install khalyomede.faker khalyomede.expect
+
       - name: Tests (latest)
-        run: docker compose run --rm v -N -W test .
+        run: docker compose run v -N -W test .
