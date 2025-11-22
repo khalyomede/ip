@@ -46,6 +46,7 @@ v install khalyomede/ip
 - Parsing
   - [Parsing IP v4](#parsing-ip-v4)
   - [Parsing IP v6](#parsing-ip-v6)
+  - [Parsing any string to an IP V4 or V6](#parsing-any-string-to-an-ip-v4-or-v6)
 - Casting
   - [Casting Ipv4 to string](#casting-ipv4-to-string)
   - [Casting Ipv6 to string](#casting-ipv6-to-string)
@@ -81,6 +82,29 @@ import khalyomede.ip { Ipv6 }
 
 fn main() {
   address := Ipv6.parse("2001:db8:3333:4444:5555:6666:7777:8888") or { Ipv6{} }
+}
+```
+
+[back to examples](#examples)
+
+### Parsing any string to an IP V4 or V6
+
+Use this method if you are not sure the provided string is an IP V4 or V6.
+
+```v
+module main
+
+import khalyomede.ip { Address, Ipv4, Ipv6 }
+
+fn main() {
+  address := Address.parse("192.168.1.1")
+
+  ip_address := match address {
+    Ipv4 { address.str() }
+    Ipv6 { address.to_full_string() }
+  }
+
+  assert ip_address == "192.168.1.1"
 }
 ```
 
