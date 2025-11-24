@@ -97,7 +97,7 @@ module main
 import khalyomede.ip { Address, Ipv4, Ipv6 }
 
 fn main() {
-  address := Address.parse("192.168.1.1")
+  address := Address.parse("192.168.1.1")!
 
   ip_address := match address {
     Ipv4 { address.str() }
