@@ -143,7 +143,7 @@ fn main() {
 - `Ipv4.address` is a fixed-size `[4]u8` array: one byte per IP v4 octet, so it must contain exactly 4 elements.
 - `Ipv6.address` is a fixed-size `[8]u16` array: one 16-bit value per IP v6 block (not one byte per block), so it must contain exactly 8 elements.
 - V requires an explicit type on the first element of a fixed-size array literal (e.g. `u8(168)`, `u16(0x2001)`) and the `!` suffix to mark it as fixed-size, so use `[u8(168), 0, 0, 1]!` rather than `[168, 0, 0, 1]`.
-- This does not validate the values you provide: prefer `Ipv4.parse()` or `Ipv6.parse()` if you need the input validated first.
+- This does not validate the values you provide: prefer `Ipv4.parse("...")` or `Ipv6.parse("...")` if you need the input parsed and validated from a string first.
 
 [back to examples](#examples)
 
