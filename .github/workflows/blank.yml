@@ -27,6 +27,18 @@ jobs:
       - name: Tests (latest)
         run: docker compose run v -N -W test .
 
+  test_0_5_1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: docker compose run v051 install khalyomede.faker khalyomede.expect
+
+      - name: Tests (0.5.1)
+        run: docker compose run v051 -N -W test .
+
   test_0_5_0:
     runs-on: ubuntu-latest
 
@@ -34,7 +46,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: docker compose run v install khalyomede.faker khalyomede.expect
+        run: docker compose run v050 install khalyomede.faker khalyomede.expect
 
-      - name: Tests (latest)
+      - name: Tests (0.5.0)
         run: docker compose run v050 -N -W test .
