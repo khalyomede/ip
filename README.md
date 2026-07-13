@@ -47,6 +47,8 @@ v install khalyomede/ip
   - [Parsing IP v4](#parsing-ip-v4)
   - [Parsing IP v6](#parsing-ip-v6)
   - [Parsing any string to an IP V4 or V6](#parsing-any-string-to-an-ip-v4-or-v6)
+- Creating
+  - [Creating an IPv4 or IPv6 address from a struct](#creating-an-ipv4-or-ipv6-address-from-a-struct)
 - Casting
   - [Casting Ipv4 to string](#casting-ipv4-to-string)
   - [Casting Ipv6 to string](#casting-ipv6-to-string)
@@ -107,6 +109,41 @@ fn main() {
   assert ip_address == "192.168.1.1"
 }
 ```
+
+[back to examples](#examples)
+
+### Creating an IPv4 or IPv6 address from a struct
+
+You can build an `Ipv4` or `Ipv6` directly from a struct literal instead of parsing a string, as long as you provide the `address` field.
+
+```v
+module main
+
+import khalyomede.ip { Ipv4 }
+
+fn main() {
+  address := Ipv4{address: [u8(168), 0, 0, 1]!}
+
+  assert "${address}" == "168.0.0.1"
+}
+```
+
+```v
+module main
+
+import khalyomede.ip { Ipv6 }
+
+fn main() {
+  address := Ipv6{address: [u16(0x2001), 0x0db8, 0, 0, 0, 0, 0, 1]!}
+
+  assert "${address}" == "2001:db8::1"
+}
+```
+
+- `Ipv4.address` is a fixed-size `[4]u8` array: one byte per IP v4 octet, so it must contain exactly 4 elements.
+- `Ipv6.address` is a fixed-size `[8]u16` array: one 16-bit value per IP v6 block (not one byte per block), so it must contain exactly 8 elements.
+- V requires an explicit type on the first element of a fixed-size array literal (e.g. `u8(168)`, `u16(0x2001)`) and the `!` suffix to mark it as fixed-size, so use `[u8(168), 0, 0, 1]!` rather than `[168, 0, 0, 1]`.
+- This does not validate the values you provide: prefer `Ipv4.parse("...")` or `Ipv6.parse("...")` if you need the input parsed and validated from a string first.
 
 [back to examples](#examples)
 
